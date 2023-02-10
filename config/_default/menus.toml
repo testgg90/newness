@@ -1,0 +1,190 @@
+############# Main menu ##############
+[[main]]
+name = "Why Simplify"
+url = "/about/"
+weight = 1
+
+[[main]]
+name = "Product Ecosystem"
+weight = 2
+hasChildren = true
+
+[[main]]
+parent = "Product Ecosystem"
+name = "Vendor Management System"
+url = "/product/vendor-management-system/"
+weight = 1
+
+[[main]]
+parent = "Product Ecosystem"
+name = "Product 2"
+url = "/product/product-2/"
+weight = 2
+
+[[main]]
+parent = "Product Ecosystem"
+name = "Product 3"
+url = "/product/product-3/"
+weight = 3
+
+[[main]]
+parent = "Product Ecosystem"
+name = "Product 4"
+url = "/product/product-4/"
+weight = 4
+
+[[main]]
+parent = "Product Ecosystem"
+name = "Product 5"
+url = "/product/product-5/"
+weight = 5
+
+[[main]]
+parent = "Product Ecosystem"
+name = "Product 6"
+url = "/product/product-6/"
+weight = 6
+
+[[main]]
+name = "Resources"
+url = "/resources/"
+weight = 3
+
+[[main]]
+name = "Solutions"
+url = "/innovative-solutions/"
+weight = 4
+
+[[main]]
+parent = "Solutions"
+name = "payment-manage"
+url = "/innovative-solutions/#payment-manage"
+weight = 1
+
+[[main]]
+parent = "Solutions"
+name = "billing-model"
+url = "/innovative-solutions/#billing-model"
+weight = 2
+
+[[main]]
+parent = "Solutions"
+name = "save-time"
+url = "/innovative-solutions/#save-time"
+weight = 3
+
+[[main]]
+parent = "Solutions"
+name = "reliably-sync"
+url = "/innovative-solutions/#reliably-sync"
+weight = 5
+
+[[main]]
+parent = "Solutions"
+name = "unleash-full-potential"
+url = "/innovative-solutions/#unleash-full-potential"
+weight = 6
+
+[[main]]
+parent = "Solutions"
+name = "grow-business"
+url = "/innovative-solutions/#grow-business"
+weight = 7
+
+[[main]]
+name = "Integrations"
+url = "/integrations/"
+weight = 10
+
+[[main]]
+name = "More"
+hasChildren = true
+weight = 11
+
+[[main]]
+parent = "More"
+name = "Life at Simplify"
+url = "/life-at-simplify/"
+weight = 1
+
+[[main]]
+parent = "More"
+name = "User Persona / Role"
+url = "/user-persona/"
+weight = 2
+
+
+######################### Products #########################
+[[products]]
+name = "Partner"
+url = "partner/"
+weight = 1
+
+[[products]]
+name = "Information"
+url = "/"
+weight = 1
+
+[[products]]
+name = "About"
+url = "/"
+weight = 1
+
+[[products]]
+name = "Take the Tour"
+url = "/"
+weight = 1
+
+
+######################### About #########################
+[[about]]
+name = "Webinars/Events"
+url = "/"
+weight = 1
+
+[[about]]
+name = "Leadership"
+url = "/"
+weight = 1
+
+[[about]]
+name = "Subscribe"
+url = "/"
+weight = 1
+
+[[about]]
+name = "Privacy"
+url = "/"
+weight = 1
+
+[[about]]
+name = "Cookie Preferences"
+url = "/"
+weight = 1
+
+[[about]]
+name = "Legal"
+url = "/"
+weight = 1
+
+
+######################### Locations #########################
+[[locations]]
+name = "USA - Headquarters"
+url = "/"
+weight = 1
+
+[[locations]]
+name = "Canada"
+url = "/"
+weight = 1
+
+[[locations]]
+name = "Europe"
+url = "/"
+weight = 1
+
+[[locations]]
+name = "India"
+url = "/"
+weight = 1
