@@ -1,0 +1,18 @@
+<!-- categories -->
+<div class="widget my-5">
+  <h3 class="h5">Categories</h3>
+  {{ if isset site.Taxonomies "categories" }}
+  {{ if not (eq (len site.Taxonomies.categories) 0) }}
+  <ul class="list-unstyled">
+    {{ range $name, $items := site.Taxonomies.categories }}
+    <li>
+      <a href="{{ .Page.RelPermalink }}" class="{{ if (and (eq $.Page.Kind `term`) (eq $.Page.Type `categories`) (eq $.Page.Title .Page.Title)) }}active{{ end }} text-dark d-flex justify-content-between">
+      <span>{{ .Page.Title }}</span>
+      <span>{{ if lt (len $items) 9 }}0{{end}}{{len $items}}</span>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+  {{ end }}
+</div>

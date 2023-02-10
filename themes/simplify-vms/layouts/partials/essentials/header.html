@@ -1,0 +1,83 @@
+<!-- navigation -->
+<header class="navigation sticky-top bg-white">
+  <div class="container-md">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-xl navbar-light">
+      <!-- navbar brand/logo -->
+      <a class="navbar-brand" href="{{ site.BaseURL | relLangURL }}">
+        {{ partial "logo.html" }}
+      </a>
+
+      <div class="d-flex align-items-center">
+        <!-- navbar toggler -->
+        <button class="navbar-toggler position-sticky" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navigation" title="Expand &amp; shrink sidebar">
+          <label class="position-relative">
+            <input class="d-none" type="checkbox">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <path class="line--1" d="M0 40h62c13 0 6 28-4 18L35 35"></path>
+              <path class="line--2" d="M0 50h70"></path>
+              <path class="line--3" d="M0 60h62c13 0 6-28-4-18L35 65"></path>
+            </svg>
+          </label>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse text-center" id="navigation">
+        <ul class="navbar-nav mx-auto flex-lg-wrap">
+          <!-- menu active -->
+          {{ $currentPage := . }}
+          {{ range site.Menus.main }}
+          {{ $menuURL := .URL | absLangURL }}
+          {{ $pageURL:= $currentPage.Permalink | absLangURL }}
+          {{ $active := eq $menuURL $pageURL }}
+          {{ if .HasChildren }}
+          <li class="nav-item dropdown {{if .Params.isMenuLarge}}dropdown-lg {{end}}
+          {{- range .Children -}}
+          {{- $childURL := .URL | absLangURL -}}
+          {{- $active := eq $childURL $pageURL -}}
+          {{- if $active }}active{{ end -}}
+          {{- end -}}">
+            {{ if .URL }}
+            <a class="nav-link d-inline-block pe-0" href="{{.URL}}">{{ .Name }}</a>
+            <span class="dropdown-toggle has-link" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></span>
+            {{ else }}
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+              {{ .Name }}
+            </a>
+            {{ end }}
+            <ul class="dropdown-menu">
+              {{ range .Children }}
+              {{ $childURL := .URL | absLangURL }}
+              {{ $active := eq $childURL $pageURL }}
+              <li>
+                <a class="dropdown-item" {{if findRE `^http` .URL}}target="_blank"
+                  rel="noopener" {{end}}
+                  href="{{if findRE `^#` .URL}}{{if not $.IsHome}}{{site.BaseURL | relLangURL}}{{end}}{{.URL}}{{else}}{{.URL | relLangURL}}{{end}}">{{.Pre}}{{
+                  .Name }}{{.Post}}</a>
+              </li>
+              {{ end }}
+            </ul>
+          </li>
+          {{ else }}
+          <li class="nav-item {{ if $active }}active{{ end }}">
+            <a class="nav-link" {{if findRE `^http` .URL}}target="_blank" rel="noopener" {{end}}
+              href="{{if findRE `^#` .URL}}{{if not $.IsHome}}{{site.BaseURL | relLangURL}}{{end}}{{.URL}}{{else}}{{.URL | relLangURL}}{{end}}">{{.Name}}</a>
+          </li>
+          {{ end }}
+          {{ end }}
+        </ul>
+
+        {{ if site.Params.navigation_button.enable }}
+        <!-- navigation btn -->
+        <a href="{{ site.Params.navigation_button.link | relLangURL }}"
+          class="btn btn-sm btn-secondary ms-xl-4 mt-3 mt-xl-0">{{ site.Params.navigation_button.label }}
+          <i class="fa-solid fa-chevron-right"></i>
+        </a>
+        {{ end }}
+      </div>
+    </nav>
+  </div>
+</header>
+<!-- /navigation -->

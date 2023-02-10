@@ -1,0 +1,257 @@
+{{ define "main" }}
+
+{{ with .Params.unify_payments }}
+{{ if .enable }}
+<section {{with .section_name}}id="{{.}}"{{end}} class="section" {{ partial `bg-image.html` (dict `Src` `images/banner-bg.png`) | safeHTMLAttr }}>
+  <div class="container-md">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-xl-6 order-2 order-xl-1">
+        <div class="section-title">
+          <h2 class="h2 title shape-start pe-lg-5">{{ .title | markdownify }}</h2>
+          <p>{{ .content | markdownify }}</p>
+          {{ with .button }}
+          {{ if .enable }}
+          <a href="{{ .link | absURL }}" class="btn btn-primary">{{.label}}</a>
+          {{ end }}
+          {{ end }}
+        </div>
+      </div>
+      <div class="col-xl-6 order-1 order-xl-2">
+        {{ partial "image.html" (dict "Src" .image ) }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Power Any Billing Model  -->
+{{ with .Params.power_billing }}
+{{ if .enable }}
+<section {{with .section_name}}id="{{.}}"{{end}} class="section pb-0">
+  <div class="container-md">
+    <div class="row justify-content-center">
+      <div class="col-xl-6">
+        <div class="section-title text-center">
+          <h2 class="h3 title">{{ .title | markdownify }}</h2>
+          <p>{{ .content | markdownify }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-5 align-items-center justify-content-around">
+      <div class="col-xl-5 order-2 order-xl-0 d-flex flex-column">
+        <div class="nav-tabs border-0" id="billing" role="tablist">
+          {{ range $i, $e:= .tabs }}
+          <button class="{{if eq $i 0}}active{{end}} h-100 bg-transparent text-start border-0 rounded-3 p-4" id="{{.title | urlize}}" data-bs-toggle="tab"
+            data-bs-target="#{{.title | urlize}}-pane" type="button" role="tab" aria-controls="{{.title | urlize}}-pane" aria-selected="{{if eq $i 0}}true{{else}}false{{end}}">
+            <i class="{{.icon}} text-primary icon-rounded"></i>
+            <h3 class="text-capitalize h6">{{ .title | markdownify }}</h3>
+            <p>{{ .content | markdownify }}</p>
+          </button>
+          {{ end }}
+        </div>
+      </div>
+      <div class="col-xl-6 order-1 order-xl-0">
+        <div class="tab-content border-0" id="billingContent">
+          {{ range $i,$e:= .tabs }}
+          <div class="{{if eq $i 0}}active show{{end}} tab-pane fade" id="{{.title | urlize}}-pane" role="tabpanel" aria-labelledby="{{.title | urlize}}" tabindex="0">
+            {{ partial "image.html" (dict "Src" .image) }}
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Save Time And Resources -->
+{{ with .Params.save_time_and_resources }}
+{{ if .enable }}
+<section {{with .section_name}}id="{{.}}"{{end}} class="section section-light">
+  <div class="container-md">
+    <div class="row justify-content-center">
+      <div class="col-xl-6">
+        <div class="section-title text-center">
+          <h2 class="h3 title">{{ .title | markdownify }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-5 align-items-center justify-content-around">
+      {{ range .list }}
+      <div class="col-xl-5 text-center">
+        <h3 class="h6">{{ .title | markdownify }}</h3>
+        <p>{{ .content | markdownify }}</p>
+        {{ with .button }}
+        {{ if .enable }}
+        <a href="{{.link | absURL}}" class="btn btn-secondary">{{.label}}
+          <i class="fa-solid fa-chevron-right"></i>
+        </a>
+        {{ end }}
+        {{ end }}
+        {{ partial "image.html" (dict "Src" .image "Class" `mt-5 shadow-sm`) }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Move faster with built-in automation -->
+{{ with .Params.automation }}
+{{ if .enable }}
+<section class="section pt-0">
+  <div class="container-md">
+    <div class="row justify-content-center">
+      <div class="col-xl-6">
+        <h2 class="h5 text-center">{{ .title | markdownify }}</h2>
+      </div>
+    </div>
+    <div class="row pt-4 gy-4 gx-sm-4 align-items-center justify-content-around">
+      {{ range .list }}
+      <div class="col-sm-6 col-xl-3">
+        <div class="shadow-sm bg-white h-100 rounded-3 p-4">
+          <i class="{{.icon}} fa-xl text-primary mb-4"></i>
+          <h3 class="text-capitalize h6 fs-6">{{ .name | markdownify }}</h3>
+          <p>{{ .content | markdownify }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Reliably Sync Data -->
+{{ with .Params.reliably_sync }}
+{{ if .enable }}
+<section {{with .section_name}}id="{{.}}"{{end}} class="section section-light pb-0">
+  <div class="container-md">
+    <div class="row align-items-center justify-content-around">
+      <div class="col-xl-6 order-2 order-xl-0">
+        <div class="section-title">
+          <h3 class="text-capitalize title shape-start">{{ .title | markdownify }}</h3>
+          <p>{{ .content | markdownify }}</p>
+        </div>
+      </div>
+      <div class="col-xl-6 order-1 order-xl-0">
+        {{ partial "image.html" (dict "Src" .image ) }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Save time and resources spent on billing -->
+{{ with .Params.unleash_full_potential }}
+{{ if .enable }}
+<section {{with .section_name}}id="{{.}}"{{end}} class="section pb-0">
+  <div class="container-md">
+    <div class="row justify-content-center">
+      <div class="col-xl-6">
+        <div class="section-title text-center">
+          <h3 class="text-capitalize title">{{.title | markdownify}}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-4 gy-5 gx-md-5 justify-content-center">
+      {{ range .list }}
+      <div class="col-sm-6 col-xl-5 text-center">
+        <div class="shadow-sm bg-white h-100 rounded-3 p-3 p-lg-5">
+          <i class="{{.icon}} fa-2xl text-primary mb-5"></i>
+          <h3 class="h5 fw-semibold text-capitalize">{{ .name | markdownify }}</h3>
+          <p>{{ .content | markdownify }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Reliably Sync Data  -->
+{{ with .Params.grow_business }}
+{{ if .enable }}
+<!-- Grow your SaaS business with Stripe  -->
+<section {{with .section_name}}id="{{.}}"{{end}} class="section section-light pt-0">
+  <div class="container-md">
+    <div class="row align-items-center justify-content-around">
+      <div class="col-xl-7 order-1 order-xl-0 text-center position-relative">
+        {{ partial "image" (dict "Src" .video_thumb) }}
+        <div class="position-absolute top-50 start-50 translate-middle w-100 h-100 d-flex justify-content-center align-items-center">
+          <button type="button" title="open video modal" data-bs-toggle="modal" data-bs-target="#videoModal"
+            video-link="{{ .video_link | safeURL }}" id="play-video" class="d-block video-play-button">
+            <i class="fa-solid fa-play text-white fs-3"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-xl-5 order-2 order-xl-0">
+        <div class="section-title">
+          <h2 class="text-capitalize h3 title shape-start">{{ .title | markdownify }}</h2>
+          <p>{{ .content | markdownify }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content w-100">
+        <iframe class="videoModalFrame" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Ready to get started -->
+{{ with .Params.call_to_action }}
+{{ if .enable }}
+<section class="section pt-0">
+  <div class="container-md">
+    <div class="row gy-5 justify-content-around align-items-center">
+      <div class="col-xl-7 order-2 order-xl-0 d-flex flex-wrap flex-sm-nowrap align-items-center gap-4">
+        {{ range .action_cards }}
+        <div class="shadow-sm bg-white h-100 rounded-3 p-3 p-sm-5">
+          <i class="{{.icon}} fa-2xl text-primary mb-5"></i>
+          <h4 class="h6 fw-semibold text-capitalize">{{.title | markdownify }}</h4>
+          <p>{{ .content | markdownify }}</p>
+          {{ with .button }}
+          {{ if .enable }}
+          <a href="{{ .link | absURL }}" class="btn btn-secondary-alt">{{ .label }}
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+          {{ end }}
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+      <div class="col-xl-4 order-1 order-xl-0">
+        <div class="section-title">
+          <h3 class="h5 text-capitalize title shape-start">{{.title | markdownify }}</h3>
+          <p>{{ .content | markdownify }}</p>
+          {{ with .button }}
+          {{ if .enable }}
+          <a href="{{ .link | absURL }}" class="btn btn-secondary">{{ .label }}
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+          {{ end }}
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+
+{{ end }}

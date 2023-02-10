@@ -1,0 +1,15 @@
+<!-- Page Header -->
+<section class="section" {{ partial `bg-image.html` (dict `Src` `images/dot-bg-2.png` ) | safeHTMLAttr }}>
+  <div class="container-md">
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="section-title text-center">
+          <h2 class="h2 title">{{ .Title | markdownify }}</h2>
+          {{ with .Params.subtitle }}
+          <p>{{ . | markdownify }}</p>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

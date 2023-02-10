@@ -1,0 +1,21 @@
+<!-- latest post -->
+<div class="widget my-5">
+  <h3 class="h5">Neurodiversity Topics</h3>
+  <div class="mt-4 d-flex flex-column gap-3">
+    {{ range first 3 ( where site.RegularPages "Section" "resources" )}}
+    <div class="blog-post-item d-flex gap-4 align-items-center">
+      <a class="flex-shrink-0" href="{{ .RelPermalink }}">
+        {{ partial "image.html" (dict "Src" .Params.image "Alt" .Title) }}
+      </a>
+      <div>
+        <h4 class="fs-6 fw-bold mb-1">
+          <a href="{{ .RelPermalink }}">{{.Title | title}}</a>
+        </h4>
+        <p class="mb-0">
+          <small>{{ .PublishDate.Format "January 2, 2006" }}</small>
+        </p>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>

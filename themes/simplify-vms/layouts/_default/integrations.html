@@ -1,0 +1,121 @@
+{{ define "main" }}
+
+{{ partial "components/page-header" . }}
+
+<section class="section pb-0">
+  <div class="container">
+    <div class="row">
+      {{ range .Params.integration_features }}
+      <div class="col-md-4">
+        <div class="bg-light rounded-3 overflow-hidden p-4 h-100">
+          <div class="p-2">
+            <span class="display-6"><i class="{{.icon}} text-primary mb-4"></i></span>
+            <h2 class="h5 lh-base">{{.title | markdownify}}</h1>
+            <p class="mb-0">{{.content | markdownify}}</p>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section opacity-50">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <hr>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="bg-light p-4 rounded-3 position-sticky" style="top:120px">
+          <div class="p-2">
+            <h2 class="h6 lh-base mb-4">Filter by category</h2>
+            <div class="filter-integration">
+              <a class="rounded-2" href="#">All Tools</a>
+              {{ $categories := slice }}
+              {{ range .Params.integration_tools }}
+              {{ $categories = $categories | append .category | uniq }}
+              {{ end }}
+              {{ range $categories }}
+              <a class="rounded-2" href="#{{. | urlize}}">{{. | markdownify}}</a>
+              {{ end }}
+            </div>
+
+            {{ range .Params.sidebar_links }}
+            <span class="opacity-50 d-block mt-4"><hr></span>
+            <p class="mb-2 fw-semibold text-dark">{{.title | markdownify}}</p>
+            <p class="mb-0 hoverable d-inline">{{.link | markdownify}}</p>
+            {{ end }}
+
+            <script>
+              // add active class to filter
+              var filter = document.querySelectorAll('.filter-integration a');
+              for (var i = 0; i < filter.length; i++) {
+                filter[i].addEventListener('click', function(e) {
+                  e.preventDefault();
+                  var filter = document.querySelectorAll('.filter-integration a');
+                  for (var i = 0; i < filter.length; i++) {
+                    filter[i].classList.remove('active');
+                  }
+                  this.classList.add('active');
+                });
+              }
+
+              // filter integration tools
+              var filter = document.querySelectorAll('.filter-integration a');
+              filter[0].classList.add('active');
+              for (var i = 0; i < filter.length; i++) {
+                filter[i].addEventListener('click', function(e) {
+                  e.preventDefault();
+                  var id = this.getAttribute('href');
+                  var integration = document.querySelectorAll('.integration-tool');
+                  for (var i = 0; i < integration.length; i++) {
+                    integration[i].style.display = 'none';
+                  }
+                  var integration = document.querySelectorAll(id);
+                  for (var i = 0; i < integration.length; i++) {
+                    integration[i].style.display = 'block';
+                  }
+                });
+              }
+              filter[0].addEventListener('click', function(e) {
+                e.preventDefault();
+                var integration = document.querySelectorAll('.integration-tool');
+                for (var i = 0; i < integration.length; i++) {
+                  integration[i].style.display = 'block';
+                }
+              });
+            </script>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div class="row gy-4">
+          {{ range .Params.integration_tools }}
+          <div id="{{.category | urlize}}" class="integration-tool col-xl-4 col-lg-6">
+            <a href="{{.source_url | safeURL}}" target="_blank" class="bg-light rounded-3 overflow-hidden p-4 h-100 d-block">
+              <div class="p-2">
+                <h3 class="h6 d-flex align-items-center">
+                  {{ partial "image" (dict "Src" .logo "Alt" .title "Size" "40x" "Class" "me-2") }}
+                  {{.title | markdownify}}
+                </h3>
+                <p class="mb-3">{{.content | markdownify}}</p>
+                <span class="p-2 px-3 shadow-sm bg-white rounded-2 text-uppercase fw-semibold" style="font-size:12px">{{.category | markdownify}}</span>
+              </div>
+            </a>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ end }}

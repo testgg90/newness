@@ -1,0 +1,238 @@
+{{ define "main" }}
+
+<!-- Banner  -->
+{{ with .Params.banner }}
+<section class="section banner pb-0" {{ partial `bg-image.html` (dict `Src` `images/banner-bg.png`) | safeHTMLAttr }}>
+  <div class="container-md">
+    <div class="row">
+      <div class="col-md-12 col-lg-9 mx-auto text-center">
+        <div class="section-title">
+          <h1 class="h2 title">{{ .title | markdownify }}</h1>
+          <p>{{ .content | markdownify }}</p>
+          {{ with .button }}
+          {{ if .enable }}
+          <a href="{{.link | absURL}}" class="btn btn-primary mt-4 mb-5">{{ .label }}</a>
+          {{ end }}
+          {{ end }}
+          {{ partial "image.html" (dict "Src" .image "Class" "mt-5" ) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<!-- Clients  -->
+{{ with .Params.clients }}
+{{ if .enable }}
+<section class="section">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-md-12 mx-auto text-center">
+        <h2 class="h6 mb-4 text-capitalize fw-semibold">
+          {{.title | markdownify}}
+        </h2>
+      </div>
+    </div>
+    <div class="row justify-content-center g-4 g-xl-5">
+      {{ range .logos }}
+      <div class="col-6 col-sm-4 col-lg-3 col-xl-2">
+        {{ partial "image.html" (dict "Src" . "Class" "d-block mx-auto" ) }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Get The Fastest Time  -->
+{{ with .Params.video_section }}
+{{ if .enable }}
+<section class="section pt-0" {{ partial `bg-image.html` (dict `Src` `images/time-hire-bg.png` ) | safeHTMLAttr }}>
+  <div class="container-md">
+    <div class="row">
+      <div class="col-md-12 col-lg-9 mx-auto text-center">
+        <div class="section-title">
+          <h2 class="h3 title">{{ .title | markdownify }}</h2>
+          <p>{{.content | markdownify }}</p>
+          <div class="position-relative mt-5">
+            {{ partial "image.html" (dict "Src" .video_thumb ) }}
+            <button class="play-icon start-50 top-50 position-absolute translate-middle btn" data-bs-toggle="modal"
+              data-bs-target="#videoModal" video-link="{{ .video_link | safeURL }}" title="Open modal of video"><i
+                class="fa-solid fa-play"></i>
+            </button>
+          </div>
+
+          <!-- Video Modal -->
+          <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModal" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+              <div class="modal-content w-100">
+                <iframe class="videoModalFrame" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- The Ultimate Platform  -->
+{{ with .Params.our_feature }}
+{{ if .enable }}
+<section class="section section-light pt-0">
+  <div class="container-md">
+    <div class="row gy-5 gy-xl-0 gx-md-5 align-items-center">
+      <div class="col-xl-4 order-1 order-xl-2">
+        <div class="section-title">
+          <h2 class="h3 title shape-start">{{ .title | markdownify }}</h2>
+          {{ with .button }}
+          {{ if .enable }}
+          <a href="{{.link | absURL}}" class="btn btn-primary">{{.label}}</a>
+          {{ end }}
+          {{ end }}
+        </div>
+      </div>
+      <div class="col-xl-8 order-2 order-xl-1">
+        <div class="row g-4">
+          {{ range .features }}
+          <div class="col-md-6">
+            <div class="bg-white shadow-sm p-4 rounded-3">
+              <h3 class="h6">{{.name | markdownify}}</h3>
+              <p>{{ .content | markdownify }}</p>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- how it works -->
+{{ range $i, $e:= .Params.how_it_works }}
+<section class="section section-light pt-0">
+  <div class="container-md">
+    <div class="row gy-5 gy-lg-0 gx-md-5 align-items-center">
+      <div class="col-xl-6 {{if modBool $i 2}}order-2 order-xl-1{{else}}order-2{{end}}">
+        <div class="section-title">
+          <h2 class="h3 title shape-start">{{ .title | markdownify }}</h2>
+          <p>{{ .content | markdownify }}</p>
+          {{ with .button }}
+          {{ if .enable }}
+          <a href="{{ .link | absURL }}" class="btn btn-primary">{{.label}}</a>
+          {{ end }}
+          {{ end }}
+        </div>
+      </div>
+      <div class="col-xl-6 {{if modBool $i 2}}order-1 order-xl-2{{else}}order-1{{end}}">
+        {{ partial "image.html" (dict "Src" .image ) }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<!-- call to action  -->
+{{ with .Params.call_to_action }}
+{{ if .enable }}
+<section class="section pt-0 vms-software px-2 px-xxl-0">
+  <div class="container-md" {{ partial `bg-image.html` (dict `Src` `images/dot-bg-1.png` ) | safeHTMLAttr }}>
+    <div class="row">
+      <div class="col-xl-9 text-center mx-auto">
+        <div class="section-title">
+          <h2 class="h3 title text-white">{{ .title | markdownify }}</h2>
+          <p class="text-white">{{ .content | markdownify }}</p>
+          {{ with .button }}
+          {{ if .enable }}
+          <a href="{{ .link | absURL }}" class="btn btn-primary btn-white">{{ .label }}</a>
+          {{ end }}
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- Testimonial  -->
+{{ with .Params.testimonial }}
+{{ if .enable }}
+<section class="section" {{ partial `bg-image.html` (dict `Src` `images/dot-bg-2.png` ) | safeHTMLAttr }}>
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-8 mx-auto">
+        <div class="section-title text-center">
+          <h2 class="h3 title">{{.title | markdownify}}</h2>
+        </div>
+        <div class="slider bg-white rounded-3 shadow-sm mb-5 overflow-hidden">
+          <div class="swiper-wrapper">
+            {{ range .testimonials }}
+            <div class="swiper-slide">
+              <div class="d-flex justify-content-between pt-4">
+                {{ partial "image.html" (dict "Src" .company_logo ) }}
+                {{ partial "image.html" (dict "Src" "images/quote.png" "Class" "quote" ) }}
+              </div>
+              <p class="review-text fs-5">“{{ .feedback | markdownify }}”</p>
+              <div class="d-flex justify-content-between align-items-center py-3">
+                <div class="d-flex align-items-center gap-3">
+                  {{ partial "image.html" (dict "Src" .image ) }}
+                  <div>
+                    <h6 class="m-0">{{ .name | markdownify }}</h6>
+                    <p class="m-0 p-0 text-start">{{ .designation | markdownify }}</p>
+                  </div>
+                </div>
+                {{ with .linkedin }}
+                <a href="{{ . | safeURL }}">
+                  <i class="fa-brands fa-linkedin fs-2"></i>
+                </a>
+                {{ end }}
+              </div>
+            </div>
+            {{ end }}
+          </div>
+        </div>
+        <div class="slider-pagination"></div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+<!-- our strategies  -->
+{{ with .Params.our_strategy }}
+{{ if .enable }}
+<section class="section">
+  <div class="container-md">
+    <div class="row">
+      <div class="col-xl-5 mx-auto">
+        <div class="section-title text-center">
+          <h2 class="h3 title">{{ .title | markdownify }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row g-4 g-sm-5 pt-4">
+      {{ range .strategies }}
+      <div class="col-md-6 col-xl-4">
+        <div class="shadow-sm h-100 rounded-3 p-4 py-5 d-flex gap-3 align-items-center">
+          <i class="{{.icon}} text-primary fs-2 me-2"></i>
+          <p class="m-0 h6 text-capitalize">{{ .name | markdownify }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+
+
+{{ end }}

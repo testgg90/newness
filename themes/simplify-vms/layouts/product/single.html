@@ -1,0 +1,188 @@
+{{ define "main" }}
+
+{{with .Params.need_to_attract}}
+{{if .enable}}
+<section class="section" {{ partial `bg-image.html` (dict `Src` `images/banner-bg.png`) | safeHTMLAttr }}>
+  <div class="container-md">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-xl-6 order-2 order-xl-1">
+        <div class="section-title">
+          <h2 class="h2 title shape-start pe-lg-5">{{.title | markdownify}}</h2>
+          <p>{{.content | markdownify}}</p>
+          {{with .button}}
+          {{if .enable}}
+          <a href="#?" class="btn btn-primary">Try for free</a>
+          {{end}}
+          {{end}}
+        </div>
+      </div>
+      <div class="col-xl-6 order-1 order-xl-2">
+        {{ partial "image.html" (dict "Src" .image ) }}
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}
+{{end}}
+
+
+
+<!-- Move faster with built-in automation -->
+{{ with .Params.block4column }}
+{{ if .enable }}
+<section class="section pt-0 mt-5 pb-3 mb-5">
+  <div class="container-md">
+    <div class="row justify-content-center">
+      <div class="col-xl-6">
+        <h2 class="h5 text-center">{{ .title | markdownify }}</h2>
+      </div>
+    </div>
+    <div class="row pt-4 gy-4 gx-sm-4 justify-content-center">
+      {{ range .list }}
+      <div class="col-sm-6 col-xl-3">
+        <div class="shadow-sm bg-white h-100 rounded-3 p-4">
+          <i class="{{.icon}} fa-xl text-primary mb-4"></i>
+          <h3 class="text-capitalize h6 fs-6">{{ .name | markdownify }}</h3>
+          <p>{{ .content | markdownify }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+{{ end }}
+
+
+<!-- CRM for every business for every industry  -->
+{{with .Params.crm}}
+{{if .enable}}
+<section class="section">
+  <div class="container-md">
+    <div class="row justify-content-center">
+      <div class="col-xl-6">
+        <div class="section-title text-center">
+          <h2 class="h3 title">{{.title | markdownify}}</h2>
+          <p>{{.subtitle | markdownify}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-5 gy-4 justify-content-center">
+      {{range .crm_cards}}
+      <div class="col-lg-6">
+        <div class="shadow-sm bg-white h-100 rounded-3 p-5">
+          <i class="{{.icon}} text-primary fs-3 mb-4"></i>
+          <h6 class="text-capitalize">{{.title | markdownify}}</h6>
+          <p>{{.subtitle | markdownify}}</p>
+          <ul class="list-group">
+            {{range .list}}
+            <li class="list-group-item">{{. | markdownify}}</li>
+            {{end}}
+          </ul>
+        </div>
+      </div>
+      {{end}}
+    </div>
+  </div>
+</section>
+{{end}}
+{{end}}
+
+<!-- New experiments Launch in one minutes -->
+{{with .Params.experiments_launch}}
+{{if .enable}}
+<section class="section-light">
+  <div class="container-md">
+    <div class="row pb-4 justify-content-center">
+      <div class="col-xl-7">
+        <div class="section-title text-center">
+          <h2 class="h3 title">{{.title | markdownify}}</h2>
+          <p>{{.subtitle | markdownify}}</p>
+        </div>
+      </div>
+    </div>
+    {{range .rows}}
+    <div class="row gy-5 align-items-center justify-content-center">
+      <div class="col-12 col-xl-6 order-2 order-xl-0">
+        {{range .row}}
+        <h4 class="h6 mt-5">{{.name | markdownify}}</h4>
+        <p>{{.content | markdownify}}</p>
+        {{end}}
+      </div>
+      <div class="col-12 col-xl-6 order-1 order-xl-0">
+        {{ partial "image.html" (dict "Src" .image "Class" `shadow-sm d-block mx-auto
+        me-xl-0`)
+        }}
+      </div>
+    </div>
+    {{end}}
+  </div>
+</section>
+{{end}}
+{{end}}
+
+<!-- Check out video preview  -->
+{{with .Params.video_preview}}
+{{if .enable}}
+<section class="section">
+  <div class="container-md">
+    <div class="row justify-content-center">
+      <div class="col-xl-6">
+        <div class="section-title text-center">
+          <h2 class="h3 title">{{.title | markdownify}}</h2>
+          <p>{{.subtitle | markdownify}}</p>
+        </div>
+      </div>
+      <div class="col-xl-8 position-relative">
+        {{ partial "image.html" (dict "Src" .image "Class" "d-block mx-auto") }}
+        <div
+          class="position-absolute top-50 start-50 translate-middle w-100 h-100 d-flex justify-content-center align-items-center">
+          <button type="button" title="open video modal" data-bs-toggle="modal" data-bs-target="#videoModal"
+            video-link="{{.video_link | safeURL}}" id="play-video" class="d-block video-play-button" href="#">
+            <i class="fa-solid fa-play text-white fs-3"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Modal -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModal" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content w-100">
+        <iframe class="videoModalFrame" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}
+{{end}}
+
+<!-- How it works  -->
+{{range $i, $e:= .Params.how_it_works}}
+<section class="section {{if modBool $i 2}} section-light pt-0 {{end}} {{if eq $i 0}} pb-0 {{end}}">
+  <div class="container-md">
+    <div class="row gy-4 align-items-center justify-content-around">
+      <div class="col-xl-5 {{if not (modBool $i 2)}} order-2{{end}}">
+        <div class="section-title">
+          <h3 class="text-capitalize title shape-start">{{.title | markdownify}}</h3>
+          <p>{{.content | markdownify}}</p>
+        </div>
+      </div>
+      <div class="col-xl-6 {{if not (modBool $i 2)}} order-1{{end}}">
+        <div class="slider overflow-hidden">
+          <div class="swiper-wrapper">
+            {{range .images}}
+            <div class="swiper-slide">
+              {{ partial "image.html" (dict "Src" .) }}
+            </div>
+            {{end}}
+          </div>
+          <div class="slider-pagination pagination-outline"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}
+{{end}}

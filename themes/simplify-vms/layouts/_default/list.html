@@ -1,0 +1,167 @@
+{{ define "main" }}
+
+{{ if or (eq .Section "post") (eq .Section "posts") (eq .Section "blog") (eq .Section "blogs") (eq .Section "news") (eq .Section "resources") }}
+<section class="section blog-page">
+  <div class="container-md">
+    <div class="row gy-4 gx-xl-5">
+      <div class="col-xl-8 text-center">
+        <h2 class="h4 mb-4 text-start">All Resources</h2>
+
+        <div class="row gy-5 pt-3">
+          {{ $paginator := .Paginate .Data.Pages }}
+          {{ range $paginator.Pages }}
+          <div class="col-sm-6">
+            <div class="blog-post-item card text-start">
+              <a href="{{.RelPermalink}}" class="blog-image">{{ partial "image.html" (dict "Src" .Params.image
+                "Class" "card-img-top w-100") }} </a>
+              <div class="card-body d-flex py-0 px-0">
+                <div class="border-end py-3 px-4 text-center">
+                  <strong class="text-primary fs-4">{{ .PublishDate.Format "02" }}</strong>
+                  <small class="d-block">{{ .PublishDate.Format "Jan" }}</small>
+                  <small class="d-block">{{ .PublishDate.Format "2006" }}</small>
+                </div>
+                <div class="py-3 px-4">
+                  <h4 class="card-title h6 mb-2">
+                    <a href="{{.RelPermalink}}" class="stretched-link text-dark">{{ .Params.title }}</a>
+                  </h4>
+                  <p class="card-text text-dark">
+                    by <a href="{{`/author/`}}{{.Params.author | urlize}}">{{ .Params.author }}</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+
+				<div class="mt-5">
+          {{"<!-- pagination -->" | safeHTML }}
+          {{ $paginator := .Paginator }}
+          <!-- Number of links either side of the current page. -->
+          {{ $adjacent_links := 2 }}
+          <!-- $max_links = ($adjacent_links * 2) + 1 -->
+          {{ $max_links := (add (mul $adjacent_links 2) 1) }}
+          <!-- $lower_limit = $adjacent_links + 1 -->
+          {{ $lower_limit := (add $adjacent_links 1) }}
+          <!-- $upper_limit = $paginator.TotalPages - $adjacent_links -->
+          {{ $upper_limit := (sub $paginator.TotalPages $adjacent_links) }}
+          <!-- If there's more than one page. -->
+          {{ if gt $paginator.TotalPages 1 }}
+            {{ if $paginator.HasNext }}
+            <a href="{{ $paginator.Next.URL }}" class="btn btn-secondary ">
+              See more
+              <i class="fa-solid fa-chevron-right"></i>
+            </a>
+            {{ else }}
+            <a href="{{ $paginator.Prev.URL }}" class="btn btn-secondary ">
+              <i class="fa-solid fa-chevron-left"></i>
+              See Previous
+            </a>
+            {{ end }}
+          {{ end }}
+        </div>
+        
+      </div>
+
+      <!-- Sidebar  Start -->
+      <aside class="col-xl-4">
+        <div class="border px-4 rounded-3">
+          {{ $widget := site.Params.widgets.sidebar }}
+          {{- partialCached "widgets/widget-wrapper" ( dict "Widgets" $widget "Scope" . ) -}}
+        </div>
+      </aside>
+      <!-- Sidebar  End -->
+    </div>
+  </div>
+</section>
+{{ else if or (eq .Section "categories") (eq .Section "tags") }}
+<section class="section blog-page">
+  <div class="container-md">
+    <div class="row gy-4 gx-xl-5">
+      <div class="col-xl-8 text-center">
+        <div>
+          <h2 class="h4 mb-4 text-start">{{.Title | title}}</h2>
+
+          <div class="row gy-5 pt-3">
+            {{ $paginator := .Paginate .Data.Pages }}
+            {{ range $paginator.Pages }}
+            <div class="col-sm-6">
+              <div class="blog-post-item card text-start">
+                <a href="{{.RelPermalink}}" class="blog-image">{{ partial "image.html" (dict "Src" .Params.image
+                  "Class" "card-img-top w-100") }} </a>
+                <div class="card-body d-flex py-0 px-0">
+                  <div class="border-end py-3 px-4 text-center">
+                    <strong class="text-primary fs-4">{{ .PublishDate.Format "02" }}</strong>
+                    <small class="d-block">{{ .PublishDate.Format "Jan" }}</small>
+                    <small class="d-block">{{ .PublishDate.Format "2006" }}</small>
+                  </div>
+                  <div class="py-3 px-4">
+                    <h4 class="card-title h6 mb-2">
+                      <a href="{{.RelPermalink}}" class="stretched-link text-dark">{{ .Params.title }}</a>
+                    </h4>
+                    <p class="card-text text-dark">
+                      by <a href="{{`/author/`}}{{.Params.author | urlize}}">{{ .Params.author }}</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{ end }}
+          </div>
+
+          <div class="mt-5">
+            {{"<!-- pagination -->" | safeHTML }}
+            {{ $paginator := .Paginator }}
+            <!-- Number of links either side of the current page. -->
+            {{ $adjacent_links := 2 }}
+            <!-- $max_links = ($adjacent_links * 2) + 1 -->
+            {{ $max_links := (add (mul $adjacent_links 2) 1) }}
+            <!-- $lower_limit = $adjacent_links + 1 -->
+            {{ $lower_limit := (add $adjacent_links 1) }}
+            <!-- $upper_limit = $paginator.TotalPages - $adjacent_links -->
+            {{ $upper_limit := (sub $paginator.TotalPages $adjacent_links) }}
+            <!-- If there's more than one page. -->
+            {{ if gt $paginator.TotalPages 1 }}
+              {{ if $paginator.HasNext }}
+              <a href="{{ $paginator.Next.URL }}" class="btn btn-secondary ">
+                See more
+                <i class="fa-solid fa-chevron-right"></i>
+              </a>
+              {{ else }}
+              <a href="{{ $paginator.Prev.URL }}" class="btn btn-secondary ">
+                <i class="fa-solid fa-chevron-left"></i>
+                See Previous
+              </a>
+              {{ end }}
+            {{ end }}
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Sidebar  Start -->
+      <aside class="col-xl-4">
+        <div class="border px-4 rounded-3">
+          {{ $widget := site.Params.widgets.sidebar }}
+          {{- partialCached "widgets/widget-wrapper" ( dict "Widgets" $widget "Scope" . ) -}}
+        </div>
+      </aside>
+      <!-- Sidebar  End -->
+    </div>
+  </div>
+</section>
+{{ else }}
+<section class="section-sm">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <div class="content">
+          {{.Content}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+{{ end }}

@@ -1,0 +1,122 @@
+/* Button style */
+.btn {
+  font-size: 0.9rem;
+  font-family: $font-primary;
+  text-transform: capitalize;
+  padding: 0.7em 1em;
+  border-radius: 0;
+  border: 1px solid;
+  position: relative;
+  z-index: 1;
+
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+
+  &:hover,
+  &:active,
+  &.active,
+  &:focus,
+  &.focus {
+    outline: 0;
+    box-shadow: none !important;
+  }
+}
+
+.btn-primary {
+  background: $color-primary;
+  color: $white;
+  border-color: $color-primary;
+  padding: 0.9rem 2.8125rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+
+  i {
+    transition: all 0.4s;
+  }
+
+  &:hover,
+  &:active,
+  &.active,
+  &:focus,
+  &.focus {
+    background: $color-primary !important;
+    border-color: $color-primary !important;
+
+    i {
+      transform: translateX(4px);
+    }
+  }
+
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.btn-secondary {
+  background: $color-primary;
+  color: $white;
+  border-color: $color-primary;
+  padding: 0.625rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+
+  i {
+    transition: all 0.4s;
+  }
+
+  &:hover,
+  &:active,
+  &.active,
+  &:focus,
+  &.focus {
+    background: $color-primary !important;
+    border-color: $color-primary !important;
+
+    i {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.btn-secondary-alt {
+  color: $color-primary !important;
+  padding: 0rem;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9375rem;
+
+  i {
+    transition: all 0.4s;
+    font-size: 0.875rem;
+    margin-left: 5px;
+  }
+
+  &:hover,
+  &:active,
+  &.active,
+  &:focus,
+  &.focus {
+    i {
+      transform: translateX(5px);
+    }
+  }
+}
+
+.btn-white {
+  background-color: $white !important;
+  color: $color-primary !important;
+
+  &:hover,
+  &:active,
+  &.active,
+  &:focus,
+  &.focus {
+    background-color: $white !important;
+    color: rgba($color-primary, 0.7) !important;
+  }
+}

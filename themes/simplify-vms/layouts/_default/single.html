@@ -1,0 +1,60 @@
+{{ define "main" }}
+<div class="section">
+  <div class="container-md">
+    <div class="row justify-content-center">
+      <div class="col-sm-8">
+        <article class="blog-post-content">
+          <div class="rounded-3 overflow-hidden">
+            {{ partial "image.html" (dict "Src" .Params.image "Class" "w-100 fit-cover") }}
+          </div>
+
+          <ul class="meta-info list-inline mt-5">
+            {{ with site.GetPage (string .Params.author | urlize | lower) }}
+            <li class="list-inline-item my-1 my-lg-0">
+              <i class="fa-regular fa-circle-user me-2"></i> {{i18n `by`}}
+              <a href="/author/{{.Params.title | urlize | lower}}">
+                {{if .Params.title}} {{.Params.title}} {{else}} Admin {{end}}
+              </a>
+            </li>
+            {{ end }}
+            <li class="list-inline-item my-1 my-lg-0">
+              <i class="fa-regular fa-calendar-days me-2"></i> {{ .PublishDate.Format "2 Jan 2006" }}
+            </li>
+            <li class="list-inline-item my-1 my-lg-0">
+              <i class="fa-regular fa-clock me-2"></i> {{.ReadingTime}} min read
+            </li>
+          </ul>
+          <h1 class="h3 lh-base text-capitalize">{{.Title}}</h1>
+          <div class="content">
+            {{.Content}}
+          </div>
+        </article>
+        {{ with site.GetPage (string .Params.author | urlize | lower) }}
+        <div class="author-block mt-4 d-flex gap-4 border p-4 rounded-3">
+          <div class="flex-shrink-0">
+            {{ partial "image.html" (dict "Src" .Params.image ) }}
+          </div>
+          <div>
+            <p class="h6 fw-semibold">
+              <a href="{{.RelPermalink}}" class="text-dark">
+                {{.Params.title}}
+              </a>
+            </p>
+            <p>{{.Content}} </p>
+            <ul class="list-inline mb-0">
+              {{range .Params.social}}
+              <li class="list-inline-item">
+                <a href="#?" class="text-primary border-primary text-center border rounded-circle">
+                  <i class="{{.icon}}"></i>
+                </a>
+              </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}
